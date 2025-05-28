@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from "./navbar";
-import './bigas.css';
+import './pastries.css';
 import { useCart } from "./CartContext"; // <-- Add this import
 
 const riceProducts = [
