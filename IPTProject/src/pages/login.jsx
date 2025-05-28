@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './CartContext';
 import './Login.css';
-import pixelpassLogo from '/public/assets/sel2.png'; // Update with actual image later
+import ImageLogo from '/public/assets/sel2.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,7 +25,6 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      // Updated API endpoint to match backend routes
       const res = await fetch('http://localhost:5000/api/users/login', {
         method: 'POST',
         headers: {
@@ -37,13 +36,9 @@ const Login = () => {
       const data = await res.json();
 
       if (res.ok) {
-        // Store token and username
         localStorage.setItem('token', data.token);
         localStorage.setItem('username', data.username);
-
-        // Update cart context
         login({ username: data.username });
-
         setLoginSuccess(true);
         setTimeout(() => {
           if (data.username === 'admin') {
@@ -72,9 +67,13 @@ const Login = () => {
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="login-container">
           <div className="login-card">
-            <h1 className="logo">Sinaing Express</h1>
-            <img src={pixelpassLogo} alt="Uncle Roger Logo" className="pixelpass-logo" />
-            <p className="tagline">log in to your sinaing journey</p>
+            <img
+              src={ImageLogo}
+              alt="Mrs. Bakers Logo"
+              className="Image-logo"
+              style={{ width: '500px', height: 'auto', marginBottom: '12px' }}
+            />
+            <p className="tag-tagline">log in to Mrs. Bakers</p>
             {loginSuccess && (
               <div style={{
                 color: '#4caf50',
@@ -120,7 +119,7 @@ const Login = () => {
                     top: '50%',
                     transform: 'translateY(-50%)',
                     cursor: 'pointer',
-                    color: '#ffbd59',
+                    color: '#701D25',
                     display: 'flex',
                     alignItems: 'center',
                     height: '100%',
@@ -132,16 +131,16 @@ const Login = () => {
                   role="button"
                 >
                   {showPassword ? (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffbd59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3.11-11-7 1.21-2.61 3.31-4.77 6-6.13"/>
-                      <path d="M1 1l22 22"/>
-                      <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c1.38 0 2.63-.83 3.16-2.03"/>
-                      <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.63 0-1.22.18-1.72.49"/>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3.11-11-7 1.21-2.61 3.31-4.77 6-6.13" />
+                      <path d="M1 1l22 22" />
+                      <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c1.38 0 2.63-.83 3.16-2.03" />
+                      <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.63 0-1.22.18-1.72.49" />
                     </svg>
                   ) : (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffbd59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <ellipse cx="12" cy="12" rx="9" ry="7"/>
-                      <circle cx="12" cy="12" r="3"/>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <ellipse cx="12" cy="12" rx="9" ry="7" />
+                      <circle cx="12" cy="12" r="3" />
                     </svg>
                   )}
                 </span>
@@ -163,19 +162,19 @@ const Login = () => {
               </button>
             </form>
             <p className="signup-text">
-              New to Sinaing Express? <Link to="/signup">Sign up</Link>
+              New to Mrs. Bakers? <Link to="/signup">Sign up</Link>
             </p>
           </div>
         </div>
       </div>
       <footer className="login-footer">
         <div className="footer-content">
-          <span role="img" aria-label="rice">🍚</span>
-          <span style={{ margin: '0 8px', fontWeight: 500 }}>Sinaing Express</span>
+          <span role="img" aria-label="rice"></span>
+          <span style={{ margin: '0 8px', fontWeight: 500 }}>Mrs. Bakers</span>
           <span style={{ color: '#ffbd59', margin: '0 8px' }}>|</span>
-          <span style={{ fontSize: '0.95rem' }}>Delivering warmth, one pot at a time.</span>
+          <span style={{ fontSize: '0.95rem' }}>Restaurant & Pastry Shop</span>
           <span style={{ float: 'right', fontSize: '0.9rem', color: '#ffddaa', marginLeft: 'auto' }}>
-            &copy; {new Date().getFullYear()} Sinaing Express
+            &copy; {new Date().getFullYear()} Mrs. Bakers
           </span>
         </div>
       </footer>

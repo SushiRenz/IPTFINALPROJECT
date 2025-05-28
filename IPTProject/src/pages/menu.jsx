@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./rice.css";
+import "./menu.css";
 import { useCart } from "./CartContext";
 
 const menuItems = [
@@ -159,12 +159,12 @@ const MenuCarousel = () => {
       </div>
       <footer className="login-footer">
         <div className="footer-content">
-          <span role="img" aria-label="rice">🍚</span>
-          <span style={{ margin: '0 8px', fontWeight: 500 }}>Sinaing Express</span>
+          <span role="img" aria-label="rice"></span>
+          <span style={{ margin: '0 8px', fontWeight: 500 }}>Mrs. Bakers</span>
           <span style={{ color: '#ffbd59', margin: '0 8px' }}>|</span>
-          <span style={{ fontSize: '0.95rem' }}>Delivering warmth, one pot at a time.</span>
+          <span style={{ fontSize: '0.95rem' }}>Restaurant & Pastry Shop</span>
           <span style={{ float: 'right', fontSize: '0.9rem', color: '#ffddaa', marginLeft: 'auto' }}>
-            &copy; {new Date().getFullYear()} Sinaing Express
+            &copy; {new Date().getFullYear()} Mrs. Bakers
           </span>
         </div>
       </footer>

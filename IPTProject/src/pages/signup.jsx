@@ -101,7 +101,7 @@ function SignUp() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="signup-container">
-          <p className="signup-tagline">Join your kanin journey!</p>
+          <p className="signup-tagline">Join the Bakers family!</p>
           <form className="signup-form" onSubmit={handleSubmit}>
             <input
               name="username"
@@ -159,7 +159,7 @@ function SignUp() {
               >
                 {showPassword ? (
                   // Eye-off SVG
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffbd59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3.11-11-7 1.21-2.61 3.31-4.77 6-6.13"/>
                     <path d="M1 1l22 22"/>
                     <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c1.38 0 2.63-.83 3.16-2.03"/>
@@ -167,7 +167,7 @@ function SignUp() {
                   </svg>
                 ) : (
                   // Eye SVG
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffbd59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <ellipse cx="12" cy="12" rx="9" ry="7"/>
                     <circle cx="12" cy="12" r="3"/>
                   </svg>
@@ -226,7 +226,7 @@ function SignUp() {
               >
                 {showConfirmPassword ? (
                   // Eye-off SVG
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffbd59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3.11-11-7 1.21-2.61 3.31-4.77 6-6.13"/>
                     <path d="M1 1l22 22"/>
                     <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c1.38 0 2.63-.83 3.16-2.03"/>
@@ -234,7 +234,7 @@ function SignUp() {
                   </svg>
                 ) : (
                   // Eye SVG
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffbd59" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <ellipse cx="12" cy="12" rx="9" ry="7"/>
                     <circle cx="12" cy="12" r="3"/>
                   </svg>
@@ -252,12 +252,12 @@ function SignUp() {
       </div>
       <footer className="login-footer">
         <div className="footer-content">
-          <span role="img" aria-label="rice">🍚</span>
-          <span style={{ margin: '0 8px', fontWeight: 500 }}>Sinaing Express</span>
+          <span role="img" aria-label="rice"></span>
+          <span style={{ margin: '0 8px', fontWeight: 500 }}>Mrs. Bakers</span>
           <span style={{ color: '#ffbd59', margin: '0 8px' }}>|</span>
-          <span style={{ fontSize: '0.95rem' }}>Delivering warmth, one pot at a time.</span>
+          <span style={{ fontSize: '0.95rem' }}>Restaurant & Pastry Shop</span>
           <span style={{ float: 'right', fontSize: '0.9rem', color: '#ffddaa', marginLeft: 'auto' }}>
-            &copy; {new Date().getFullYear()} Sinaing Express
+            &copy; {new Date().getFullYear()} Mrs. Bakers
           </span>
         </div>
       </footer>

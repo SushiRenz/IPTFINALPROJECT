@@ -1,109 +1,123 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather:wght@700&family=Open+Sans:wght@400;600&family=Lato:wght@400;700&family=Poppins:wght@500;700&family=Montserrat:wght@500;700&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Merriweather', serif;
-  background: linear-gradient(135deg, #ff8c42, #d35400, #b33939);
-  height: 100vh;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
+  background: #F6EBD8;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .signup-container {
-  backdrop-filter: blur(10px);
-  background: rgba(50, 25, 0, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 40px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(30,30,30,0.08);
+  padding: 40px 32px 32px 32px;
   width: 350px;
   text-align: center;
-  margin: -500px auto 0 auto;
+  margin: 0 auto;
+  border: 1px solid #f0e6d2;
 }
 
 .signup-title {
-  font-family: 'Merriweather', serif;
-  color: #ffbd59;
+  font-family: 'Playfair Display', 'Merriweather', serif;
+  color: #701D25;
   font-size: 2.2rem;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
 }
 
 .signup-tagline {
-  color: #f5deb3;
-  margin-bottom: 30px;
-  font-size: 0.95rem;
+  color: #3E2C1A;
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
 }
 
 .signup-form input {
-  width: 93%;
+  width: 94%;
   padding: 12px;
   margin: 10px 0;
-  background: rgba(70, 40, 0, 0.8);
-  border: none;
-  border-radius: 8px;
-  color: #fff5e1;
-  font-size: 0.95rem;
-  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.15);
-  transition: box-shadow 0.3s, background 0.3s;
+  background: #F6EBD8;
+  border: 1px solid #e0d3c0;
+  border-radius: 7px;
+  color: #3E2C1A;
+  font-size: 1rem;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
+  transition: border 0.2s;
+}
+
+.signup-form input:focus {
+  border: 1.5px solid #701D25;
+  outline: none;
 }
 
 .signup-form input::placeholder {
-  color: #ffddaa;
+  color: #b8a48b;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
 }
 
 .signup-form button {
-  width: 50%;
+  width: 60%;
   padding: 12px;
-  margin-top: 32px;
-  background-color: #ff7300;
-  color: white;
+  margin-top: 28px;
+  background-color: #701D25;
+  color: #fff;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 7px;
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 16px;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  transition: background 0.2s;
 }
 
 .signup-form button:hover {
-  background-color: #ff944d;
+  background-color: #a02c36;
 }
 
 .login-link {
-  margin-top: 20px;
-  color: #ffddaa;
-  font-size: 0.9rem;
+  margin-top: 18px;
+  color: #3E2C1A;
+  font-size: 0.97rem;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
 }
 
 .login-link a {
-  color: #ffffff;
+  color: #701D25;
   text-decoration: underline;
+  font-weight: 600;
 }
 
 .signup-error {
-  color: #e57373;
-  font-size: 0.9em;
+  color: #a02c36;
+  font-size: 0.93em;
   margin-bottom: 4px;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
 }
 
 .signup-strength {
-  font-size: 0.9em;
+  font-size: 0.93em;
   margin-bottom: 4px;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
 }
+
 .login-footer {
   width: 100vw;
-  background: linear-gradient(90deg, #b33939 0%, #ff8c42 100%);
-  color: #ffe4c4;
+  background: #fff;
+  color: #1E1E1E;
   position: fixed;
   left: 0;
   bottom: 0;
   z-index: 100;
   padding: 0;
   margin: 0;
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.15);
-  font-family: 'Poppins', 'Merriweather', serif;
+  border-top: 1px solid #e0d3c0;
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
 }
 
 .footer-content {
@@ -115,4 +129,11 @@ body {
   font-size: 1rem;
   letter-spacing: 0.02em;
   min-height: 40px;
+}
+
+@media (max-width: 500px) {
+  .signup-container {
+    width: 98vw;
+    padding: 24px 8px;
+  }
 }

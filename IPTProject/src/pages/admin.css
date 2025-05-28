@@ -1,32 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather:wght@700&family=Open+Sans:wght@400;600&family=Lato:wght@400;700&family=Poppins:wght@500;700&family=Montserrat:wght@500;700&display=swap');
 
 body {
-  background: linear-gradient(135deg, #ff8c42, #d35400, #b33939);
-  font-family: 'Merriweather', serif;
+  background: #F6EBD8;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
 }
 
 .admin-container {
   margin: 32px auto 0 auto;
-  background: rgba(50, 25, 0, 0.92);
-  border: 1.5px solid rgba(255, 255, 255, 0.10);
+  background: #fff;
+  border: 1.5px solid #f0e6d2;
   border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgba(30,30,30,0.08);
   padding: 38px 32px 28px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  backdrop-filter: blur(10px);
 }
 
 .admin-title {
   font-size: 2.1rem;
   font-weight: 900;
-  color: #ffbd59;
+  color: #701D25;
   letter-spacing: 1px;
   margin-bottom: 28px;
   text-align: center;
-  font-family: 'Merriweather', serif;
-  text-shadow: 0 2px 12px #b3393940;
+  font-family: 'Playfair Display', 'Merriweather', serif;
+  text-shadow: none;
 }
 
 .admin-form {
@@ -49,20 +50,20 @@ body {
 .admin-form input,
 .admin-form textarea {
   padding: 12px 14px;
-  border: 1.5px solid #ffbd59;
+  border: 1.5px solid #e0d3c0;
   border-radius: 8px;
   font-size: 1rem;
-  background: rgba(255, 244, 220, 0.95);
-  color: #b33939;
+  background: #F6EBD8;
+  color: #3E2C1A;
   transition: border 0.2s, background 0.2s;
   flex: 1 1 180px;
   min-width: 160px;
-  font-family: 'Merriweather', serif;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
 }
 
 .admin-form input:focus,
 .admin-form textarea:focus {
-  border-color: #ff8c42;
+  border-color: #701D25;
   background: #fff;
   outline: none;
 }
@@ -74,29 +75,30 @@ body {
 }
 
 .admin-form button {
-  background: linear-gradient(90deg, #ff8c42 60%, #b33939 100%);
-  color: #fff5e1;
+  background: #701D25;
+  color: #fff;
   border: none;
   padding: 13px 32px;
   border-radius: 10px;
   font-size: 1.08rem;
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
   font-weight: 700;
   cursor: pointer;
   margin-top: 10px;
   transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-  box-shadow: 0 2px 8px #b3393940;
+  box-shadow: 0 2px 8px #701D2540;
   letter-spacing: 1px;
 }
 
 .admin-form button[type="button"] {
   background: #ffe4c4;
-  color: #b33939;
+  color: #701D25;
   margin-left: 10px;
   font-weight: 600;
 }
 
 .admin-form button:hover {
-  background: linear-gradient(90deg, #b33939 60%, #ff8c42 100%);
+  background: #a02c36;
   color: #fff;
   transform: scale(1.04);
 }
@@ -104,28 +106,29 @@ body {
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(255, 244, 220, 0.97);
+  background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(255,140,66,0.10);
+  box-shadow: 0 2px 12px rgba(112,29,37,0.10);
   margin-top: 10px;
 }
 
 .admin-table th,
 .admin-table td {
   padding: 13px 10px;
-  border-bottom: 2px solid #ffbd59;
+  border-bottom: 2px solid #f0e6d2;
   text-align: left;
   font-size: 1rem;
-  font-family: 'Merriweather', serif;
-  color: #222 !important;
+  font-family: 'Open Sans', 'Lato', Arial, sans-serif;
+  color: #3E2C1A !important;
 }
 
 .admin-table th {
-  background: #ffbd59;
+  background: #F6EBD8;
   font-weight: 700;
-  color: #b33939;
+  color: #701D25;
   letter-spacing: 0.2px;
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
 }
 
 .admin-table tr:last-child td {
@@ -137,13 +140,13 @@ body {
   height: 54px;
   object-fit: cover;
   border-radius: 7px;
-  border: 2px solid #ffbd59;
+  border: 2px solid #701D25;
   background: #fff;
 }
 
 .admin-table button {
-  background: #ff8c42;
-  color: #fff5e1;
+  background: #701D25;
+  color: #fff;
   border: none;
   padding: 7px 16px;
   border-radius: 6px;
@@ -151,17 +154,19 @@ body {
   cursor: pointer;
   margin-right: 5px;
   font-weight: 600;
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
   transition: background 0.2s, transform 0.2s;
 }
 
 .admin-table button:last-child {
-  background: #b33939;
+  background: #a02c36;
 }
 
 .admin-table button:hover {
-  background: #ffbd59;
-  color: #b33939;
+  background: #F6EBD8;
+  color: #701D25;
   transform: scale(1.07);
+  border: 1px solid #701D25;
 }
 
 @media (max-width: 700px) {

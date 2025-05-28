@@ -7,7 +7,7 @@
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(135deg, #ff8c42 0%, #d35400 60%, #b33939 100%);
-  font-family: 'Merriweather', 'Playfair Display', 'Cormorant Garamond', serif;
+  font-family: 'Merriweather', 'Open Sans', 'Open Sans', 'Poppins';
   /* Move the menu up or down by changing this value: */
   margin-top: -500px; /* Set positive to move down, negative to move up */
 }
@@ -285,10 +285,9 @@
   border-radius: 24px;
 }
 
-/* --- Footer styles for login/rice page --- */
 .login-footer {
   width: 100vw;
-  background: linear-gradient(90deg, #b33939 0%, #ff8c42 100%);
+  background: linear-gradient(90deg, #701D25 0%, #a23a44 100%);
   color: #ffe4c4;
   position: fixed;
   left: 0;
@@ -297,7 +296,7 @@
   padding: 0;
   margin: 0;
   box-shadow: 0 -2px 16px rgba(0,0,0,0.15);
-  font-family: 'Poppins', 'Merriweather', serif;
+  font-family: 'Open Sans', 'Merriweather', Open Sans;
 }
 
 .footer-content {
