@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Merriweather', serif;
+  background: linear-gradient(135deg, #ff8c42, #d35400, #b33939);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-container {
+  backdrop-filter: blur(10px);
+  background: rgba(50, 25, 0, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  width: 350px;
+  text-align: center;
+  margin: -500px auto 0 auto;
+}
+
+.signup-title {
+  font-family: 'Merriweather', serif;
+  color: #ffbd59;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.signup-tagline {
+  color: #f5deb3;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.signup-form input {
+  width: 93%;
+  padding: 12px;
+  margin: 10px 0;
+  background: rgba(70, 40, 0, 0.8);
+  border: none;
+  border-radius: 8px;
+  color: #fff5e1;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.15);
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+.signup-form input::placeholder {
+  color: #ffddaa;
+}
+
+.signup-form button {
+  width: 50%;
+  padding: 12px;
+  margin-top: 32px;
+  background-color: #ff7300;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.signup-form button:hover {
+  background-color: #ff944d;
+}
+
+.login-link {
+  margin-top: 20px;
+  color: #ffddaa;
+  font-size: 0.9rem;
+}
+
+.login-link a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.signup-error {
+  color: #e57373;
+  font-size: 0.9em;
+  margin-bottom: 4px;
+}
+
+.signup-strength {
+  font-size: 0.9em;
+  margin-bottom: 4px;
+}
+.login-footer {
+  width: 100vw;
+  background: linear-gradient(90deg, #b33939 0%, #ff8c42 100%);
+  color: #ffe4c4;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.15);
+  font-family: 'Poppins', 'Merriweather', serif;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 32px 10px 32px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  min-height: 40px;
+}
