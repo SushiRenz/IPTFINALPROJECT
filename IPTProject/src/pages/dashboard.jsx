@@ -2,24 +2,8 @@ import React from 'react';
 import Navbar from "./navbar";
 import './dashboard.css';
 import { useCart } from './CartContext';
-
-const featuredMeals = [
-  {
-    name: "Premium Jasmine Rice",
-    desc: "Soft, aromatic, perfect for everyday meals.",
-    img: "https://www.hungrylankan.com/wp-content/uploads/2024/10/Instant-pot-jasmine-rice-768x1024.jpg.webp"
-  },
-  {
-    name: "Kanto-Style Garlic Fried Rice Pack",
-    desc: "Vacuum-sealed and microwaveable, made for busy Filipino gamers/students.",
-    img: "https://i0.wp.com/iankewks.com/wp-content/uploads/2023/06/IMG_1611.jpg?resize=800%2C1055&ssl=1"
-  },
-  {
-    name: "Toyo-Mansi Rice Bombs",
-    desc: "Sticky rice balls infused with soy sauce and calamansi. Iconic, portable.",
-    img: "https://nomadette.com/wp-content/uploads/2023/03/Kimchi-Fried-Rice-Balls-Jumeok-Bap.jpg"
-  }
-];
+import p1 from '../assets/p1.png'; // Add this import at the top
+import p2 from '../assets/p2.png'; // Add this line
 
 const Dashboard = () => {
   const { currentUser } = useCart();
@@ -27,35 +11,39 @@ const Dashboard = () => {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="dashboard-hero">
           <div className="hero-content">
             <h1>
-              Welcome to <span className="sinaing-logo">Sinaing Express</span>
-              {currentUser && currentUser.username ? `, ${currentUser.username}` : ""}
+              Welcome to Mrs. Bakers
             </h1>
             <p className="hero-tagline">
-              Your online takeout for all things rice! Enjoy Filipino favorites and rice bowls, hot and fresh, delivered to your door.
+              Bringing families together with every bite—enjoy comforting homemade meals and pastries, made with love and tradition.
             </p>
-            <a href="/rice" className="btn hero-btn">Browse Rice Meals</a>
+            <div className="hero-details">
+              <span>We're open for dine-in, reservations, takeout &amp; pick-up.</span>
+              <span>9AM-8PM Tue-Sun</span>
+              <span>Proud Taste You Just Want to Come Back For</span>
+            </div>
+            <div className="hero-actions">
+              <a href="/menu" className="btn hero-btn">Check Menu</a>
+              <a
+                href="https://www.facebook.com/Mrs.Bakers/videos/1593533780664455"
+                className="btn hero-btn"
+                style={{ background: '#fff', color: '#701D25', border: '2px solid #701D25', boxShadow: 'none' }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span style={{ marginRight: 8, fontSize: 18, verticalAlign: 'middle' }}>▶</span>
+                Watch Video
+              </a>
+            </div>
           </div>
           <div className="hero-image">
-            <img src="https://www.maggi.ph/sites/default/files/styles/home_stage_1500_700/public/srh_recipes/bfdc4aabaa491807618e7303c20723c6.jpg?h=476030cb&itok=32TzQ7Pc" alt="Rice Bowl" />
-          </div>
-        </div>
-
-        <div className="featured-section">
-          <h2 className="featured-title">Best Sellers</h2>
-          <div className="meals-grid">
-            {featuredMeals.map((meal, idx) => (
-              <div className="meal-card" key={idx}>
-                <img src={meal.img} alt={meal.name} className="meal-img" />
-                <div className="meal-info">
-                  <h3>{meal.name}</h3>
-                  <p>{meal.desc}</p>
-                </div>
-              </div>
-            ))}
+            <img
+              src={p1}
+              alt="Rice Bowl"
+            />
           </div>
         </div>
       </div>

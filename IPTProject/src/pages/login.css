@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather:wght@700&family=Open+Sans:wght@400;600&family=Lato:wght@400;700&family=Poppins:wght@500;700&family=Montserrat:wght@500;700&family=Pacifico&display=swap');
 
+body, html {
+  min-width: 500px !important;
+  overflow-x: auto !important;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -15,10 +20,13 @@ body {
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 4px 32px rgba(30,30,30,0.08);
-  padding: 40px 32px 32px 32px;
-  width: 350px;
+  width: 400px !important;
+  min-width: 400px !important;
+  max-width: 400px !important;
+  margin: 0 auto !important;
+  padding: 40px 32px 32px 32px !important;
+  box-sizing: border-box;
   text-align: center;
-  margin: 0 auto;
   border: 1px solid #f0e6d2;
 }
 
@@ -133,9 +141,3 @@ body {
   min-height: 40px;
 }
 
-@media (max-width: 500px) {
-  .login-container {
-    width: 98vw;
-    padding: 24px 8px;
-  }
-}

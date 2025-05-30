@@ -9,6 +9,8 @@ import Navbar from './pages/navbar';
 import Cart from './pages/cart';
 import Checkout from './pages/checkout';
 import Admin from './pages/admin';
+import About from './pages/about';
+import Location from './pages/location';
 import { CartProvider } from './pages/CartContext';
 import './App.css';
 
@@ -29,6 +31,8 @@ function AppContent() {
         <Route path="/pastries" element={<Pastries />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/admin" element={<Admin />} />
+         <Route path="/about" element={<About />} />
+         <Route path="/location" element={<Location />} />
       </Routes>
     </>
   );
