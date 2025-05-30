@@ -35,6 +35,8 @@ const Admin = () => {
   const [userForm, setUserForm] = useState(initialUserForm);
   const [userEditIndex, setUserEditIndex] = useState(null);
   const [showUserModal, setShowUserModal] = useState(false);
+  const [plainPasswords, setPlainPasswords] = useState({}); // userID: plain password
+  const [showUserPassword, setShowUserPassword] = useState(false); // <-- New state for password visibility
 
   // Error states
   const [usernameError, setUsernameError] = useState("");
@@ -47,9 +49,9 @@ const Admin = () => {
     axios.get(API_URL)
       .then(res => setMenuProducts(res.data.map(prod => ({
         productID: prod._id,
-        productName: prod.name,
+        productName: prod.productName,
         price: prod.price,
-        imageURL: prod.imageUrl,
+        imageURL: prod.imageURL,
         description: prod.description,
         category: prod.category
       }))))
@@ -59,7 +61,7 @@ const Admin = () => {
         userID: u._id,
         username: u.username,
         email: u.email,
-        password: u.password
+        password: "" // Don't show encrypted password
       }))))
 
       .catch(err => console.error("Error loading users:", err));
@@ -95,42 +97,44 @@ const Admin = () => {
       if (editIndex === null) {
         // ADD
         const res = await axios.post(API_URL, {
-          name: form.productName,
+          productName: form.productName,
           price: form.price,
           description: form.description,
-          imageUrl: form.imageURL,
+          imageURL: form.imageURL,
           category: form.category,
         });
         const newProduct = {
           productID: res.data._id,
-          productName: res.data.name,
+          productName: res.data.productName,
           price: res.data.price,
-          imageURL: res.data.imageUrl,
+          imageURL: res.data.imageURL,
           description: res.data.description,
           category: res.data.category
         };
         setProducts([...products, newProduct]);
+        alert("Product added successfully!"); // <-- Add this line
       } else {
         // UPDATE
         const productToUpdate = products[editIndex];
         const res = await axios.put(`${API_URL}/${productToUpdate.productID}`, {
-          name: form.productName,
+          productName: form.productName,
           price: form.price,
           description: form.description,
-          imageUrl: form.imageURL,
+          imageURL: form.imageURL,
           category: form.category,
         });
         const updatedProduct = {
           productID: res.data._id,
-          productName: res.data.name,
+          productName: res.data.productName,
           price: res.data.price,
-          imageURL: res.data.imageUrl,
+          imageURL: res.data.imageURL,
           description: res.data.description,
           category: res.data.category
         };
         const updatedProducts = [...products];
         updatedProducts[editIndex] = updatedProduct;
         setProducts(updatedProducts);
+        alert("Product updated successfully!"); // <-- Add this line
       }
 
       setForm(initialForm);
@@ -196,13 +200,13 @@ const Admin = () => {
     }
 
   // Password validation
-if (name === "password") {
-  if (!isStrongPassword(value)) {
-    setPasswordError("Min 8 chars, upper, lower, number & symbol.");
-  } else {
-    setPasswordError("");
+  if (name === "password") {
+    if (!isStrongPassword(value)) {
+      setPasswordError("Min 8 chars, upper, lower, number & symbol.");
+    } else {
+      setPasswordError("");
+    }
   }
-}
   };
 
   // Username validation: only letters, numbers, underscores
@@ -245,9 +249,10 @@ if (name === "password") {
           userID: res.data._id,
           username: res.data.username,
           email: res.data.email,
-          password: res.data.password
+          password: userForm.password // Store plain password for display
         };
         setUsers([...users, newUser]);
+        setPlainPasswords(prev => ({ ...prev, [res.data._id]: userForm.password }));
         setUsernameError("");
         setPasswordError("");
       } else {
@@ -262,11 +267,12 @@ if (name === "password") {
           userID: res.data._id,
           username: res.data.username,
           email: res.data.email,
-          password: res.data.password
+          password: userForm.password // Store plain password for display
         };
         const updatedUsers = [...users];
         updatedUsers[userEditIndex] = updatedUser;
         setUsers(updatedUsers);
+        setPlainPasswords(prev => ({ ...prev, [res.data._id]: userForm.password }));
         setUsernameError("");
         setPasswordError("");
       }
@@ -277,8 +283,13 @@ if (name === "password") {
     }
   };
 
+  // When editing, show the plain password if available
   const handleUserEdit = (idx) => {
-    setUserForm(users[idx]);
+    const user = users[idx];
+    setUserForm({
+      ...user,
+      password: "*******"
+    });
     setUserEditIndex(idx);
     setShowUserModal(false);
   };
@@ -482,45 +493,99 @@ if (name === "password") {
           {showModal && (
             <div className="admin-modal-overlay" onClick={() => setShowModal(false)}>
               <div className="admin-modal" onClick={e => e.stopPropagation()}>
-                <button className="admin-modal-close" onClick={() => setShowModal(false)} title="Close">&times;</button>
+                <button
+                  className="admin-modal-close"
+                  onClick={() => setShowModal(false)}
+                  title="Close"
+                  style={{
+                    position: "absolute",
+                    top: 18,
+                    right: 22,
+                    background: "none",
+                    border: "none",
+                    fontSize: "1.7rem",
+                    color: "#701D25",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    zIndex: 10
+                  }}
+                >
+                  &times;
+                </button>
                 <h3 style={{ marginTop: 0, marginBottom: 18, color: "#701D25", textAlign: "center" }}>
                   Menu & Pastries List
                 </h3>
-                <table className="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Image</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Category</th>
-                      <th>Description</th>
-                      <th style={{ minWidth: 110 }}>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {products.length === 0 ? (
+                <div className="admin-modal-table-wrapper">
+                  <table className="admin-table">
+                    <thead>
                       <tr>
-                        <td colSpan="6" style={{ textAlign: "center" }}>No products yet.</td>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th style={{ minWidth: 110 }}>Actions</th>
                       </tr>
-                    ) : (
-                      products.map((prod, idx) => (
-                        <tr key={prod.productID}>
-                          <td>
-                            <img src={prod.imageURL} alt={prod.productName} />
-                          </td>
-                          <td>{prod.productName}</td>
-                          <td>{prod.price}</td>
-                          <td>{prod.category}</td>
-                          <td>{prod.description}</td>
-                          <td>
-                            <button onClick={() => { handleEdit(idx); setShowModal(false); }}>Edit</button>
-                            <button onClick={() => handleDelete(idx)}>Delete</button>
-                          </td>
+                    </thead>
+                    <tbody>
+                      {products.length === 0 ? (
+                        <tr>
+                          <td colSpan="6" style={{ textAlign: "center" }}>No products yet.</td>
                         </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
+                      ) : (
+                        products.map((prod, idx) => (
+                          <tr key={prod.productID}>
+                            <td>
+                              <img src={prod.imageURL} alt={prod.productName} />
+                            </td>
+                            <td>{prod.productName}</td>
+                            <td>{prod.price}</td>
+                            <td>{prod.category}</td>
+                            <td>{prod.description}</td>
+                            <td>
+                              <div style={{ display: "flex", gap: "8px" }}>
+                                <button
+                                  style={{
+                                    background: "#701D25",
+                                    color: "#fff",
+                                    border: "none",
+                                    padding: "7px 16px",
+                                    borderRadius: "6px",
+                                    fontSize: "0.97rem",
+                                    cursor: "pointer",
+                                    fontWeight: 600,
+                                    fontFamily: "'Poppins', 'Montserrat', Arial, sans-serif",
+                                    transition: "background 0.2s, transform 0.2s"
+                                  }}
+                                  onClick={() => { handleEdit(idx); setShowModal(false); }}
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  style={{
+                                    background: "#a02c36",
+                                    color: "#fff",
+                                    border: "none",
+                                    padding: "7px 16px",
+                                    borderRadius: "6px",
+                                    fontSize: "0.97rem",
+                                    cursor: "pointer",
+                                    fontWeight: 600,
+                                    fontFamily: "'Poppins', 'Montserrat', Arial, sans-serif",
+                                    transition: "background 0.2s, transform 0.2s"
+                                  }}
+                                  onClick={() => handleDelete(idx)}
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}
@@ -563,19 +628,59 @@ if (name === "password") {
               type="email"
             />
             <label htmlFor="password">Password*</label>
-            <input
-              id="password"
-              name="password"
-              placeholder="Password*"
-              value={userForm.password}
-              onChange={handleUserChange}
-              required
-              type="password"
-              style={{
-                borderColor: passwordError ? "#d32f2f" : undefined,
-                background: passwordError ? "#fff0f0" : undefined
-              }}
-            />
+            <div style={{ position: 'relative', width: '100%' }}>
+              <input
+                id="password"
+                name="password"
+                placeholder="Password*"
+                value={userForm.password}
+                onChange={handleUserChange}
+                required
+                type={showUserPassword ? "text" : "password"}
+                style={{
+                  borderColor: passwordError ? "#d32f2f" : undefined,
+                  background: passwordError ? "#fff0f0" : undefined,
+                  width: "100%",
+                  paddingRight: "2.5rem",
+                  boxSizing: "border-box"
+                }}
+              />
+              <span
+                onClick={() => setShowUserPassword((prev) => !prev)}
+                style={{
+                  position: 'absolute',
+                  right: '18px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                  color: '#ffbd59',
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '100%',
+                  userSelect: 'none',
+                  zIndex: 2
+                }}
+                aria-label={showUserPassword ? 'Hide password' : 'Show password'}
+                tabIndex={0}
+                role="button"
+              >
+                {showUserPassword ? (
+                  // Eye-off SVG
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3.11-11-7 1.21-2.61 3.31-4.77 6-6.13"/>
+                    <path d="M1 1l22 22"/>
+                    <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5c1.38 0 2.63-.83 3.16-2.03"/>
+                    <path d="M14.47 14.47A3.5 3.5 0 0 0 12 8.5c-.63 0-1.22.18-1.72.49"/>
+                  </svg>
+                ) : (
+                  // Eye SVG
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#701D25" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <ellipse cx="12" cy="12" rx="9" ry="7"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                )}
+              </span>
+            </div>
             {passwordError && (
               <div style={{ color: "#d32f2f", fontSize: "0.95em", marginBottom: 6 }}>
                 {passwordError}
@@ -632,7 +737,7 @@ if (name === "password") {
                           <td>{user.userID}</td>
                           <td>{user.username}</td>
                           <td>{user.email}</td>
-                          <td>{user.password}</td>
+                          <td>{"******"}</td>
                           <td>
                             <button onClick={() => { handleUserEdit(idx); setShowUserModal(false); }}>Edit</button>
                             <button onClick={() => handleUserDelete(idx)}>Delete</button>

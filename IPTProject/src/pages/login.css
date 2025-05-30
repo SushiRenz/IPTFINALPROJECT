@@ -13,7 +13,6 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .login-container {
@@ -23,7 +22,7 @@ body {
   width: 400px !important;
   min-width: 400px !important;
   max-width: 400px !important;
-  margin: 0 auto !important;
+  margin: -100px auto 0 auto !important;
   padding: 40px 32px 32px 32px !important;
   box-sizing: border-box;
   text-align: center;

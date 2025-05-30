@@ -11,29 +11,19 @@ function SignUp() {
     confirmPassword: '',
   });
   const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [passwordStrength, setPasswordStrength] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   // Username validation: only letters, numbers, underscores
-  const validateUsername = (username) => {
-    return /^[a-zA-Z0-9_]+$/.test(username);
-  };
+  const validateUsername = (username) => /^[a-zA-Z0-9_]+$/.test(username);
 
-  // Password strength checker
-  const checkPasswordStrength = (password) => {
-    if (password.length < 6) return 'Weak';
-    if (
-      /[A-Z]/.test(password) &&
-      /[a-z]/.test(password) &&
-      /[0-9]/.test(password) &&
-      /[^A-Za-z0-9]/.test(password) &&
-      password.length >= 8
-    ) {
-      return 'Strong';
-    }
-    return 'Medium';
+  // Password strength checker (same as admin)
+  const isStrongPassword = (password) => {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
   };
 
   const handleChange = (e) => {
@@ -43,35 +33,75 @@ function SignUp() {
     if (name === 'username') {
       if (!validateUsername(value)) {
         setUsernameError('Username can only contain letters, numbers, and underscores.');
+      } else if (!value) {
+        setUsernameError('Username is required.');
       } else {
         setUsernameError('');
       }
     }
 
     if (name === 'password') {
-      setPasswordStrength(checkPasswordStrength(value));
+      if (!isStrongPassword(value)) {
+        setPasswordError("Min 8 chars, upper, lower, number & symbol.");
+      } else {
+        setPasswordError('');
+      }
+      setPasswordStrength(
+        value.length < 8
+          ? 'Weak'
+          : isStrongPassword(value)
+          ? 'Strong'
+          : 'Medium'
+      );
+      // Also check confirm password if already typed
+      if (formData.confirmPassword && value !== formData.confirmPassword) {
+        setConfirmPasswordError("Passwords don't match");
+      } else {
+        setConfirmPasswordError('');
+      }
+    }
+
+    if (name === 'confirmPassword') {
+      if (value !== formData.password) {
+        setConfirmPasswordError("Passwords don't match");
+      } else {
+        setConfirmPasswordError('');
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let hasError = false;
+
     if (!validateUsername(formData.username)) {
       setUsernameError('Username can only contain letters, numbers, and underscores.');
-      return;
+      hasError = true;
+    }
+    if (!formData.username) {
+      setUsernameError('Username is required.');
+      hasError = true;
+    }
+    if (!formData.password) {
+      setPasswordError('Password is required.');
+      hasError = true;
+    } else if (!isStrongPassword(formData.password)) {
+      setPasswordError('Password must be at least 8 characters and include uppercase, lowercase, number, and special character.');
+      hasError = true;
     }
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match");
-      return;
+      setConfirmPasswordError("Passwords don't match");
+      hasError = true;
     }
-    if (passwordStrength === 'Weak') {
-      alert('Password is too weak.');
-      return;
+    if (!formData.email) {
+      // You can add email validation here if needed
+      hasError = true;
     }
+    if (hasError) return;
 
     setIsLoading(true);
 
     try {
-      // Updated API endpoint to match backend routes
       const res = await fetch('http://localhost:5000/api/users/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -122,7 +152,6 @@ function SignUp() {
               required
               disabled={isLoading}
             />
-            {/* Password field with show/hide */}
             <div style={{ position: 'relative', width: '100%' }}>
               <input
                 name="password"
@@ -174,6 +203,7 @@ function SignUp() {
                 )}
               </span>
             </div>
+            {passwordError && <div className="signup-error">{passwordError}</div>}
             {formData.password && (
               <div
                 className="signup-strength"
@@ -189,7 +219,6 @@ function SignUp() {
                 Password strength: {passwordStrength}
               </div>
             )}
-            {/* Confirm Password field with show/hide */}
             <div style={{ position: 'relative', width: '100%' }}>
               <input
                 name="confirmPassword"
@@ -241,6 +270,7 @@ function SignUp() {
                 )}
               </span>
             </div>
+            {confirmPasswordError && <div className="signup-error">{confirmPasswordError}</div>}
             <button type="submit" disabled={isLoading}>
               {isLoading ? 'Creating Account...' : 'Sign Up'}
             </button>

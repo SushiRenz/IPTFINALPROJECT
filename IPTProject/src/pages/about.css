@@ -52,12 +52,12 @@
   line-height: 1.7;
 }
 
-.about-bg,
+/* .about-bg,
 .about-overlay {
   min-width: 2000px !important;
   width: 2000px !important;
   max-width: 2000px !important;
-}
+} */
 
 .about-container {
   max-width: 700px;

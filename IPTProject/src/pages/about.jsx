@@ -16,6 +16,17 @@ const About = () => (
         </p>
       </div>
     </div>
+    <footer className="login-footer">
+      <div className="footer-content">
+        <span role="img" aria-label="rice"></span>
+        <span style={{ margin: '0 8px', fontWeight: 500 }}>Mrs. Bakers</span>
+        <span style={{ color: '#ffbd59', margin: '0 8px' }}>|</span>
+        <span style={{ fontSize: '0.95rem' }}>Restaurant & Pastry Shop</span>
+        <span style={{ float: 'right', fontSize: '0.9rem', color: '#ffddaa', marginLeft: 'auto' }}>
+          &copy; {new Date().getFullYear()} Mrs. Bakers
+        </span>
+      </div>
+    </footer>
   </div>
 );
 
