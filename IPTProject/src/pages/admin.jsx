@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./admin.css";
 
-const API_URL = "http://localhost:5001/api/products";
-const USERS_URL = "http://localhost:5001/api/users";
+const API_URL = "http://localhost:5000/api/products";
+const USERS_URL = "http://localhost:5000/api/users";
 
 const initialForm = {
   productID: "",
@@ -35,6 +35,10 @@ const Admin = () => {
   const [userForm, setUserForm] = useState(initialUserForm);
   const [userEditIndex, setUserEditIndex] = useState(null);
   const [showUserModal, setShowUserModal] = useState(false);
+
+  // Error states
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
@@ -179,15 +183,56 @@ const Admin = () => {
 
   // --- User Handlers ---
   const handleUserChange = (e) => {
-    setUserForm({ ...userForm, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setUserForm({ ...userForm, [name]: value });
+
+    // Username validation
+    if (name === "username") {
+      if (!validateUsername(value)) {
+        setUsernameError("Username can only contain letters, numbers, and underscores.");
+      } else {
+        setUsernameError("");
+      }
+    }
+
+  // Password validation
+if (name === "password") {
+  if (!isStrongPassword(value)) {
+    setPasswordError("Min 8 chars, upper, lower, number & symbol.");
+  } else {
+    setPasswordError("");
+  }
+}
+  };
+
+  // Username validation: only letters, numbers, underscores
+  const validateUsername = (username) => /^[a-zA-Z0-9_]+$/.test(username);
+
+  // Password strength checker
+  const isStrongPassword = (password) => {
+    // At least 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
   };
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
+    // Validate before submit
+    let hasError = false;
     if (!userForm.username || !userForm.email || !userForm.password) {
-      alert("Please fill in all required fields.");
-      return;
+      setUsernameError(!userForm.username ? "Username is required." : "");
+      setPasswordError(!userForm.password ? "Password is required." : "");
+      hasError = true;
     }
+    if (!validateUsername(userForm.username)) {
+      setUsernameError("Username can only contain letters, numbers, and underscores.");
+      hasError = true;
+    }
+    if (!isStrongPassword(userForm.password)) {
+      setPasswordError("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
+      hasError = true;
+    }
+    if (hasError) return;
+
     try {
       if (userEditIndex === null) {
         // ADD
@@ -203,6 +248,8 @@ const Admin = () => {
           password: res.data.password
         };
         setUsers([...users, newUser]);
+        setUsernameError("");
+        setPasswordError("");
       } else {
         // UPDATE
         const userToUpdate = users[userEditIndex];
@@ -220,11 +267,13 @@ const Admin = () => {
         const updatedUsers = [...users];
         updatedUsers[userEditIndex] = updatedUser;
         setUsers(updatedUsers);
+        setUsernameError("");
+        setPasswordError("");
       }
       setUserForm(initialUserForm);
       setUserEditIndex(null);
     } catch (error) {
-      alert("Error submitting user.");
+      setPasswordError("Error submitting user.");
     }
   };
 
@@ -493,7 +542,16 @@ const Admin = () => {
               value={userForm.username}
               onChange={handleUserChange}
               required
+              style={{
+                borderColor: usernameError ? "#d32f2f" : undefined,
+                background: usernameError ? "#fff0f0" : undefined
+              }}
             />
+            {usernameError && (
+              <div style={{ color: "#d32f2f", fontSize: "0.95em", marginBottom: 6 }}>
+                {usernameError}
+              </div>
+            )}
             <label htmlFor="email">Email*</label>
             <input
               id="email"
@@ -513,7 +571,16 @@ const Admin = () => {
               onChange={handleUserChange}
               required
               type="password"
+              style={{
+                borderColor: passwordError ? "#d32f2f" : undefined,
+                background: passwordError ? "#fff0f0" : undefined
+              }}
             />
+            {passwordError && (
+              <div style={{ color: "#d32f2f", fontSize: "0.95em", marginBottom: 6 }}>
+                {passwordError}
+              </div>
+            )}
             <div className="button-row" style={{ display: "flex", gap: "16px", justifyContent: "flex-end", marginTop: "8px" }}>
               <button type="button" onClick={handleUserCancel}>
                 Cancel

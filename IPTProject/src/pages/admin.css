@@ -114,12 +114,13 @@ body {
 
 .admin-table {
   width: 100%;
+  min-width: 800px;          /* Ensures table doesn't squish columns */
   border-collapse: collapse;
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(112,29,37,0.10);
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .admin-table th,
@@ -237,11 +238,32 @@ body {
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(30,30,30,0.18);
   padding: 32px 24px 24px 24px;
-  max-width: 98vw;
-  width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
+  width: 1100px;           /* Fixed width, not responsive */
+  min-width: 1100px;
+  max-width: 1100px;
+  max-height: 95vh;
+  overflow: visible;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Remove modal/table responsiveness */
+.admin-modal-table-wrapper {
+  overflow-x: auto;
+  max-height: 70vh;
+  margin-top: 10px;
+}
+
+/* Remove media queries for modal and table */
+@media (max-width: 1000px) {
+  .admin-modal { width: 1100px; min-width: 1100px; max-width: 1100px; padding: 32px 24px 24px 24px; }
+  .admin-table { min-width: 800px; }
+}
+@media (max-width: 700px) {
+  .admin-modal { width: 1100px; min-width: 1100px; max-width: 1100px; padding: 32px 24px 24px 24px; }
+  .admin-table { min-width: 800px; font-size: 1rem; }
 }
 
 .admin-modal-close {
@@ -284,21 +306,3 @@ body {
   transform: scale(1.12);
 }
 
-@media (max-width: 700px) {
-  .admin-container {
-    max-width: 98vw;
-    padding: 18px 2vw;
-  }
-  .admin-form-fields {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .admin-table th, .admin-table td {
-    font-size: 0.93rem;
-    padding: 8px 4px;
-  }
-  .admin-modal {
-    width: 98vw;
-    padding: 16px 4vw 16px 4vw;
-  }
-}
